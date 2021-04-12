@@ -4,6 +4,53 @@
 bool checkSpreadsheetCell(const SpreadSheetCell &cell){
     return (SpreadSheetCell::stringToDouble(cell.mString)== cell.mValue);
 }
+const SpreadSheetCell operator+(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs)
+{
+   SpreadSheetCell newCell;
+   newCell.set(lhs.mValue+rhs.mValue);
+   return (newCell);
+}
+
+const SpreadSheetCell operator-(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs)
+{
+   SpreadSheetCell newCell;
+   newCell.set(lhs.mValue-rhs.mValue);
+   return (newCell);
+}
+const SpreadSheetCell operator*(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs)
+{
+   SpreadSheetCell newCell;
+   newCell.set(lhs.mValue*rhs.mValue);
+   return (newCell);
+}
+const SpreadSheetCell operator/(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs)
+{
+   SpreadSheetCell newCell;
+   if(rhs.mValue == 0){
+       newCell.set(0);
+   }else{
+    newCell.set(lhs.mValue/rhs.mValue);
+   }
+   return (newCell);
+}
+bool operator ==(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs){
+    return (lhs.mValue == rhs.mValue);
+}
+bool operator <(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs){
+    return (lhs.mValue<rhs.mValue);
+}
+bool operator >(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs){
+    return(lhs.mValue>rhs.mValue);
+}
+bool operator !=(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs){
+    return (lhs.mValue!=rhs.mValue);
+}
+bool operator <=(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs){
+    return (lhs.mValue<=rhs.mValue);
+}
+bool operator >=(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs){
+    return (lhs.mValue>=rhs.mValue);
+}
 SpreadSheetCell::SpreadSheetCell():mValue(0),mString(""),mNumAccesses(0)
 {
 
@@ -23,7 +70,7 @@ SpreadSheetCell &SpreadSheetCell::operator=(const SpreadSheetCell &rhs)
     return (*this);
 }
 
-inline double SpreadSheetCell::getValue() const
+ double SpreadSheetCell::getValue() const
 {
     mNumAccesses++;
     return (mValue);
@@ -42,7 +89,7 @@ void SpreadSheetCell::set(const std::string &inString)
     mValue=stringToDouble(mString);
 }
 
-inline std::string SpreadSheetCell::getString() const
+ std::string SpreadSheetCell::getString() const
 {
     mNumAccesses++;
     return (mString);
@@ -72,12 +119,35 @@ double SpreadSheetCell::stringToDouble(const std::string &inString)
     return temp;
 }
 
-const SpreadSheetCell SpreadSheetCell::operator+(const SpreadSheetCell &cell) const
+SpreadSheetCell &SpreadSheetCell::operator+=(const SpreadSheetCell &rhs)
 {
-    SpreadSheetCell newCell;
-    newCell.set(mValue+cell.mValue);
-    return (newCell);
+    set(mValue+rhs.mValue);
+    return (*this);
 }
+
+SpreadSheetCell &SpreadSheetCell::operator-=(const SpreadSheetCell &rhs)
+{
+    set(mValue-rhs.mValue);
+    return (*this);
+}
+
+SpreadSheetCell &SpreadSheetCell::operator*=(const SpreadSheetCell &rhs)
+{
+    set(mValue*rhs.mValue);
+    return (*this);
+}
+
+SpreadSheetCell &SpreadSheetCell::operator/=(const SpreadSheetCell &rhs)
+{
+    if(rhs.mValue == 0){
+        set(mValue);
+    }else{
+        set(mValue/rhs.mValue);
+    }
+    return (*this);
+}
+
+
 SpreadSheetCell SpreadSheet::getCellAt(int x, int y)
 {
     SpreadSheetCell empty;
