@@ -1,6 +1,9 @@
 #include "spreadsheet.h"
 #include <sstream>
 
+bool checkSpreadsheetCell(const SpreadSheetCell &cell){
+    return (SpreadSheetCell::stringToDouble(cell.mString)== cell.mValue);
+}
 SpreadSheetCell::SpreadSheetCell():mValue(0),mString(""),mNumAccesses(0)
 {
 
@@ -67,6 +70,13 @@ double SpreadSheetCell::stringToDouble(const std::string &inString)
         return 0;
     }
     return temp;
+}
+
+const SpreadSheetCell SpreadSheetCell::operator+(const SpreadSheetCell &cell) const
+{
+    SpreadSheetCell newCell;
+    newCell.set(mValue+cell.mValue);
+    return (newCell);
 }
 SpreadSheetCell SpreadSheet::getCellAt(int x, int y)
 {

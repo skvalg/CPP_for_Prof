@@ -6,7 +6,7 @@ class SpreadSheetCell{
 public:
     SpreadSheetCell();
     SpreadSheetCell(double initialValue);
-    SpreadSheetCell(const std::string& initialValue);
+    explicit SpreadSheetCell(const std::string& initialValue);
     SpreadSheetCell(const SpreadSheetCell& src); //конструктор копирования
 
     SpreadSheetCell& operator=(const SpreadSheetCell& rhs);
@@ -17,8 +17,14 @@ public:
     void set(double inValue);
     void set(const std::string &inString);
 
+    //Функции преобразования данных имеют интересный способ этого преобразования
     static std::string doubleToString(double inValue);
     static double stringToDouble(const std::string & inString);
+
+    friend bool checkSpreadsheetCell(const SpreadSheetCell &cell);
+
+    //перергрузка операторов
+    const SpreadSheetCell operator+(const SpreadSheetCell &cell)const;
 protected:
     double mValue;
     std::string mString;
