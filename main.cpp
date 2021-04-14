@@ -5,7 +5,6 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
     //пример использования указателя на метод
     SpreadSheetCell myCell;
     myCell.set(2.66);

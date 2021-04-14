@@ -1,13 +1,36 @@
+/**
+\file
+\brief Заголовочный файл с описанием классов для работы с электронными таблицами
+\author Ovsyannikov NIkolay
+\version 1.0
+\date Апрель 2021 года
+
+Данный файл содержит в себе определения основных
+классов, используемых для реализации электронны таблиц
+*/
+
 #ifndef SPREADSHEET_H
 #define SPREADSHEET_H
 #include <string>
 class SpreadSheetApplication;
+
+//Коментарий к классу
+/**
+ * @brief The SpreadSheetCell class - класс характеризующий ячейку электронной таблицы
+ *
+ * Данный класс рассматривается для отработки механизмов программирования С++
+ */
 class SpreadSheetCell{
 public:
     SpreadSheetCell();
     SpreadSheetCell(double initialValue);
     explicit SpreadSheetCell(const std::string& initialValue);
-    SpreadSheetCell(const SpreadSheetCell& src); //конструктор копирования
+    /**
+     * \brief конструктор копирования
+     * \param[out] this текущий объект
+     * \param[in] src адрес экземпляра SpreadSheetCell
+     */
+    SpreadSheetCell(const SpreadSheetCell& src);
 
     SpreadSheetCell& operator=(const SpreadSheetCell& rhs);
 
@@ -17,16 +40,24 @@ public:
     void set(double inValue);
     void set(const std::string &inString);
 
-    //Функции преобразования данных имеют интересный способ этого преобразования
+    /**
+     * \brief Статический метод преобразования стрового значения в std::string
+     * \param[in] inValue адрес экземпляра SpreadSheetCell
+     * \return возвращает строковое значение inValue
+     *
+     */
+    //для вставки кода в документацию лучше использовать флаг doxygen
+    //INLINE_SOURCE true
     static std::string doubleToString(double inValue);
     static double stringToDouble(const std::string & inString);
 
     friend bool checkSpreadsheetCell(const SpreadSheetCell &cell);
 
-    //перергрузка операторов, для обеспечения комутативности
-    //функция не должна быть связана ни с каким объектом
-    //поэтому ее делаем глобальной и дружественной к нашему классу,
-    // чтобы она имела доступ к внутренним членам нашего класса
+    /**перергрузка операторов. Для обеспечения комутативности
+    функция не должна быть связана ни с каким объектом
+    поэтому ее делаем глобальной и дружественной к нашему классу,
+    чтобы она имела доступ к внутренним членам нашего класса
+    */
     friend const SpreadSheetCell operator+(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs);
     friend const SpreadSheetCell operator-(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs);
     friend const SpreadSheetCell operator*(const SpreadSheetCell &lhs, const SpreadSheetCell &rhs);
