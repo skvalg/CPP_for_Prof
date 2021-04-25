@@ -6,7 +6,9 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        poli_spreadsheet.cpp \
         spreadsheet.cpp
 
 HEADERS += \
+    poli_spreadsheet.h \
     spreadsheet.h
